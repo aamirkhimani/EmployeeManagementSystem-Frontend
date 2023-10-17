@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "axios": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "react-bootstrap": "^2.9.0",
+    "react-crud-icons": "^1.2.3",
+    "react-toastify": "^9.1.3"
+  }
+}
