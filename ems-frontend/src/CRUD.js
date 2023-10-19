@@ -21,7 +21,7 @@ export default function CRUD() {
 
 
   const getData = () => {
-    axios.get('http://localhost:5272/api/Employee')
+    axios.get('http://localhost:57462/api/Employee')
       .then((result) => {
         setData(result.data)
       })
@@ -48,7 +48,7 @@ export default function CRUD() {
   const handleViewShow = () => setViewShow(true);
 
   const handleView = (id) => {
-    const url = `http://localhost:5272/api/Employee/${id}`
+    const url = `http://localhost:57462/api/Employee/${id}`
     axios.get(url)
       .then((result) => {
 
@@ -94,7 +94,7 @@ export default function CRUD() {
   const handleAddClose = () => setAddShow(false);
   const handleAddShow = () => setAddShow(true);
   const handleAddSubmit = () => {
-    const url = 'http://localhost:5272/api/Employee'
+    const url = 'http://localhost:57462/api/Employee'
     const data = {
       "firstName": addFirstName,
       "lastName": addLastName,
@@ -165,7 +165,7 @@ export default function CRUD() {
   const handleEditClose = () => setEditShow(false);
   const handleEditShow = () => setEditShow(true);
   const handleEditSubmit = () => {
-    const url = 'http://localhost:5272/api/Employee'
+    const url = 'http://localhost:57462/api/Employee'
     const data = {
       "id": idForEdit,
       "firstName": editFirstName,
@@ -213,7 +213,7 @@ export default function CRUD() {
 
   const handleEdit = (id) => {
     setIdForEdit(id);
-    const url = `http://localhost:5272/api/Employee/${id}`
+    const url = `http://localhost:57462/api/Employee/${id}`
     axios.get(url)
       .then((result) => {
         setEditFirstName(result.data.firstName);
@@ -235,6 +235,11 @@ export default function CRUD() {
       })
   }
 
+  const handleEditIsActive = (e) => {
+    setEditIsActive(e.target.checked);
+  }
+
+
   //#endregion
 
   //#region Delete Employee
@@ -244,10 +249,10 @@ export default function CRUD() {
   const handleDeleteShow = () => setDeleteShow(true);
   const handleDeleteSubmit = () => {
     console.log(idForDeletion);
-    const url = `http://localhost:5272/api/Employee/${idForDeletion}`
+    const url = `http://localhost:57462/api/Employee/${idForDeletion}`
     axios.delete(url)
       .then((result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           handleDeleteClose();
           getData();
           toast.success('Employee deleted successfully.', {
@@ -413,8 +418,9 @@ export default function CRUD() {
         setEditZip={setEditZip}
         editPhoneNumber={editPhoneNumber}
         setEditPhoneNumber={setEditPhoneNumber}
-        editIsActive={setEditPhoneNumber}
+        editIsActive={editIsActive}
         setEditIsActive={setEditIsActive}
+        handleEditIsActive={handleEditIsActive}
         handleEditSubmit={handleEditSubmit}
        />
 

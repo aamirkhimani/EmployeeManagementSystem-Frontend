@@ -33,6 +33,7 @@ export default function EditEmployee(props){
         setEditPhoneNumber,
         editIsActive,
         setEditIsActive,
+        handleEditIsActive,
         handleEditSubmit
     } = props;
 
@@ -109,7 +110,7 @@ export default function EditEmployee(props){
             </Row>
 
             <Form.Group className="mb-3" id="formGridCheckbox">
-              <Form.Check type="checkbox" label="IsActive" checked={editIsActive} onChange={(e) => setEditIsActive(e.target.checked)} />
+              <Form.Check type="checkbox" label="IsActive" value={editIsActive} checked={editIsActive} onChange={(e) => handleEditIsActive(e)} />
             </Form.Group>
 
           </Form>
