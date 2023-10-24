@@ -32,7 +32,6 @@ export default function EditEmployee(props){
         editPhoneNumber,
         setEditPhoneNumber,
         editIsActive,
-        setEditIsActive,
         handleEditIsActive,
         handleEditSubmit
     } = props;

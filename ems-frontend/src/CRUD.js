@@ -11,6 +11,7 @@ import { formatDate } from "./dateUtils";
 import AddEmployee from "./Modules/Employee/AddEmployee";
 import EditEmployee from "./Modules/Employee/EditEmployee";
 import DeleteEmployee from "./Modules/Employee/DeleteEmployee";
+import appSettings from "./appSettings.json";
 
 export default function CRUD() {
   const [data, setData] = useState([]);
@@ -21,7 +22,7 @@ export default function CRUD() {
 
 
   const getData = () => {
-    axios.get('http://localhost:57462/api/Employee')
+    axios.get(`${appSettings.backendBaseUrl}Employee`)
       .then((result) => {
         setData(result.data)
       })
@@ -48,7 +49,7 @@ export default function CRUD() {
   const handleViewShow = () => setViewShow(true);
 
   const handleView = (id) => {
-    const url = `http://localhost:57462/api/Employee/${id}`
+    const url = `${appSettings.backendBaseUrl}Employee/${id}`;
     axios.get(url)
       .then((result) => {
 
@@ -94,7 +95,7 @@ export default function CRUD() {
   const handleAddClose = () => setAddShow(false);
   const handleAddShow = () => setAddShow(true);
   const handleAddSubmit = () => {
-    const url = 'http://localhost:57462/api/Employee'
+    const url = `${appSettings.backendBaseUrl}Employee`
     const data = {
       "firstName": addFirstName,
       "lastName": addLastName,
@@ -165,7 +166,7 @@ export default function CRUD() {
   const handleEditClose = () => setEditShow(false);
   const handleEditShow = () => setEditShow(true);
   const handleEditSubmit = () => {
-    const url = 'http://localhost:57462/api/Employee'
+    const url = `${appSettings.backendBaseUrl}Employee`
     const data = {
       "id": idForEdit,
       "firstName": editFirstName,
@@ -213,7 +214,7 @@ export default function CRUD() {
 
   const handleEdit = (id) => {
     setIdForEdit(id);
-    const url = `http://localhost:57462/api/Employee/${id}`
+    const url = `${appSettings.backendBaseUrl}Employee/${id}`
     axios.get(url)
       .then((result) => {
         setEditFirstName(result.data.firstName);
@@ -249,7 +250,7 @@ export default function CRUD() {
   const handleDeleteShow = () => setDeleteShow(true);
   const handleDeleteSubmit = () => {
     console.log(idForDeletion);
-    const url = `http://localhost:57462/api/Employee/${idForDeletion}`
+    const url = `${appSettings.backendBaseUrl}Employee/${idForDeletion}`
     axios.delete(url)
       .then((result) => {
         if (result.status === 200) {
@@ -406,7 +407,7 @@ export default function CRUD() {
         setEditGender={setEditGender}
         editDateOfBirth={editDateOfBirth}
         setEditDateOfBirth={setEditDateOfBirth}
-        editSocialSecurityNumber={setEditDateOfBirth}
+        editSocialSecurityNumber={editSocialSecurityNumber}
         setEditSocialSecurityNumber={setEditSocialSecurityNumber}
         editInsuranceNumber={editInsuranceNumber}
         setEditInsuranceNumber={setEditInsuranceNumber}
