@@ -21,6 +21,7 @@ export default function ViewEmployee(props){
         viewCity,
         viewZip,
         viewPhoneNumber,
+        viewDepartment,
         viewIsActive
     } = props;
 
@@ -89,10 +90,16 @@ export default function ViewEmployee(props){
                 <Form.Label>Zip</Form.Label>
                 <Form.Control value={viewZip} disabled={true} />
               </Form.Group>
+            </Row>
 
-              <Form.Group as={Col} controlId="formGridPhoneNumber">
+            <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridPhoneNumber">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control value={viewPhoneNumber} disabled={true} />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridDepartment">
+                <Form.Label>Department</Form.Label>
+                <Form.Control value={viewDepartment} disabled={true} />
               </Form.Group>
             </Row>
 

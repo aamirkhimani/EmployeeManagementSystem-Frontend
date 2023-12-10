@@ -31,6 +31,9 @@ export default function EditEmployee(props){
         setEditZip,
         editPhoneNumber,
         setEditPhoneNumber,
+        departmentsData,
+        editDepartment,
+        setEditDepartment,
         editIsActive,
         handleEditIsActive,
         handleEditSubmit
@@ -101,10 +104,32 @@ export default function EditEmployee(props){
                 <Form.Label>Zip</Form.Label>
                 <Form.Control value={editZip} onChange={(e) => setEditZip(e.target.value)} />
               </Form.Group>
+            </Row>
 
+            <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridPhoneNumber">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control value={editPhoneNumber} onChange={(e) => setEditPhoneNumber(e.target.value)} />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridDepartment">
+                <Form.Label>Department</Form.Label>
+                <Form.Select  value={editDepartment}  onChange={(e) => setEditDepartment(e.target.value)}>
+                  {<React.Fragment key="">
+                  <option value="">To be decided...</option>
+                  </React.Fragment>}
+                  {
+                  departmentsData && departmentsData.length > 0 ? departmentsData.map((item) => (
+                    <React.Fragment key={item.id}>
+                    <option value={item.id}>{item.name}</option>
+                    </React.Fragment>
+                  )) : (
+                    <tr>
+                      <td colSpan="5">Loading...</td>
+                    </tr>
+                  )
+                }
+                </Form.Select>
               </Form.Group>
             </Row>
 

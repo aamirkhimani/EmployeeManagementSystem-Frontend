@@ -31,6 +31,8 @@ export default function AddEmployee(props){
         setAddZip,
         addPhoneNumber,
         setAddPhoneNumber,
+        departmentsData,
+        setAddDepartment,
         addIsActive,
         handleAddIsActive,
         handleAddSubmit
@@ -101,10 +103,29 @@ export default function AddEmployee(props){
                 <Form.Label>Zip</Form.Label>
                 <Form.Control value={addZip} onChange={(e) => setAddZip(e.target.value)} />
               </Form.Group>
+            </Row>
 
+            <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridPhoneNumber">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control value={addPhoneNumber} onChange={(e) => setAddPhoneNumber(e.target.value)} />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridDepartment">
+                <Form.Label>Department</Form.Label>
+                <Form.Select onChange={(e) => setAddDepartment(e.target.value)}>
+                  <option value="">To be decided...</option>
+                  {
+                  departmentsData && departmentsData.length > 0 ? departmentsData.map((item) => (
+                    <React.Fragment key={item.id}>
+                    <option value={item.id}>{item.name}</option>
+                    </React.Fragment>
+                  )) : (
+                    <tr>
+                      <td colSpan="5">Loading...</td>
+                    </tr>
+                  )
+                }
+                </Form.Select>
               </Form.Group>
             </Row>
 

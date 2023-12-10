@@ -2,29 +2,44 @@ import React, { useState, useEffect, Fragment } from "react";
 import Table from "react-bootstrap/Table";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Icon from "react-crud-icons";
-import "../node_modules/react-crud-icons/dist/css/react-crud-icons.css";
+import "../../../node_modules/react-crud-icons/dist/css/react-crud-icons.css";
 import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import ViewEmployee from "./Modules/Employee/ViewEmployee";
-import { formatDate } from "./dateUtils";
-import AddEmployee from "./Modules/Employee/AddEmployee";
-import EditEmployee from "./Modules/Employee/EditEmployee";
-import DeleteEmployee from "./Modules/Employee/DeleteEmployee";
-import appSettings from "./appSettings.json";
+import ViewEmployee from "../Employee/ViewEmployee";
+import { formatDate } from "../../dateUtils";
+import AddEmployee from "../Employee/AddEmployee";
+import EditEmployee from "../Employee/EditEmployee";
+import DeleteEmployee from "../Employee/DeleteEmployee";
+import appSettings from "../../appSettings.json";
+import api from "../../Api.js";
 
 export default function CRUD() {
   const [data, setData] = useState([]);
+  const [departmentsData, setDepartmentsData] = useState([]);
 
   useEffect(() => {
     getData();
+    getDepartmentsData();
   }, []);
+
+  const token = sessionStorage.getItem('token');
 
 
   const getData = () => {
-    axios.get(`${appSettings.backendBaseUrl}Employee`)
+    axios.get(`${appSettings.backendBaseUrl}Employee`, {headers: {"Authorization" : `Bearer ${token}`}})
       .then((result) => {
         setData(result.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const getDepartmentsData = () => {
+    axios.get(`${appSettings.backendBaseUrl}Department`)
+      .then((result) => {
+        setDepartmentsData(result.data)
       })
       .catch((error) => {
         console.log(error)
@@ -42,6 +57,7 @@ export default function CRUD() {
   const [viewCity, setViewCity] = useState('');
   const [viewZip, setViewZip] = useState('');
   const [viewPhoneNumber, setViewPhoneNumber] = useState('');
+  const [viewDepartment, setViewDepartment] = useState('');
   const [viewIsActive, setViewIsActive] = useState(false);
 
   const [viewShow, setViewShow] = useState(false);
@@ -63,6 +79,7 @@ export default function CRUD() {
         setViewCity(result.data.city);
         setViewZip(result.data.zip);
         setViewPhoneNumber(result.data.phoneNumber);
+        setViewDepartment(result.data.department != null ? result.data.department.name : 'To be decided...');
         setViewIsActive(result.data.isActive);
 
         handleViewShow();
@@ -86,6 +103,7 @@ export default function CRUD() {
   const [addCity, setAddCity] = useState('');
   const [addZip, setAddZip] = useState('');
   const [addPhoneNumber, setAddPhoneNumber] = useState('');
+  const [addDepartment, setAddAddDepartment] = useState('');
   const [addIsActive, setAddIsActive] = useState(false);
 
 
@@ -107,6 +125,7 @@ export default function CRUD() {
       "city": addCity,
       "zip": addZip,
       "phoneNumber": addPhoneNumber,
+      "DepartmentId": addDepartment,
       "isActive": addIsActive
     }
 
@@ -159,6 +178,7 @@ export default function CRUD() {
   const [editCity, setEditCity] = useState('');
   const [editZip, setEditZip] = useState('');
   const [editPhoneNumber, setEditPhoneNumber] = useState('');
+  const [editDepartment, setEditDepartment] = useState('');
   const [editIsActive, setEditIsActive] = useState(false);
 
   const [editShow, setEditShow] = useState(false);
@@ -179,6 +199,7 @@ export default function CRUD() {
       "city": editCity,
       "zip": editZip,
       "phoneNumber": editPhoneNumber,
+      "departmentId": editDepartment,
       "isActive": editIsActive
     }
 
@@ -227,6 +248,7 @@ export default function CRUD() {
         setEditCity(result.data.city);
         setEditZip(result.data.zip);
         setEditPhoneNumber(result.data.phoneNumber);
+        setEditDepartment(result.data.department != null ? result.data.department.id : '');
         setEditIsActive(result.data.isActive);
 
         handleEditShow();
@@ -391,6 +413,8 @@ export default function CRUD() {
         setAddZip={setAddZip}
         addPhoneNumber={addPhoneNumber}
         setAddPhoneNumber={setAddPhoneNumber}
+        departmentsData = {departmentsData}
+        setAddDepartment = {setAddAddDepartment}
         addIsActive={addIsActive}
         handleAddIsActive={handleAddIsActive}
         handleAddSubmit={handleAddSubmit}
@@ -419,6 +443,9 @@ export default function CRUD() {
         setEditZip={setEditZip}
         editPhoneNumber={editPhoneNumber}
         setEditPhoneNumber={setEditPhoneNumber}
+        departmentsData = {departmentsData}
+        editDepartment={editDepartment}
+        setEditDepartment={setEditDepartment}
         editIsActive={editIsActive}
         setEditIsActive={setEditIsActive}
         handleEditIsActive={handleEditIsActive}
@@ -438,6 +465,7 @@ export default function CRUD() {
         viewCity = {viewCity}
         viewZip = {viewZip}
         viewPhoneNumber = {viewPhoneNumber}
+        viewDepartment = {viewDepartment}
         viewIsActive = {viewIsActive}
       />
 
