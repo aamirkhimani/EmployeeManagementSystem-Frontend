@@ -108,7 +108,7 @@ export default function Login(){
         <div className="card">
             <div className="text">
                 <h3>Welcome Back</h3>
-                <p>Enter your credentials to access your account.</p>
+                <p>Enter your credentials to access your account</p>
             </div>
             <form onSubmit={handleSignIn}>
                 <div className="input-text">
